@@ -1,7 +1,9 @@
 from db import mydb
+from db.queries import create_table
 from utils import translate_text, is_complete_sentence, is_valid_image_url, get_image_urls_from_detail_page
 
 base_url = 'https://m.imot.bg/results'
+create_table()
 
 try:
     mycursor = mydb.cursor()
