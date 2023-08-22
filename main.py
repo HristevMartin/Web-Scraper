@@ -8,7 +8,7 @@ create_table()
 try:
     mycursor = mydb.cursor()
 
-    max_pages = 3
+    max_pages = 20
 
     building_info = []
 
@@ -45,6 +45,12 @@ try:
 
     for building in building_info:
         try:
+            check_sql = "SELECT 1 FROM buildings WHERE advert_url = %s"
+            mycursor.execute(check_sql, (building['advert_url'],))
+            if mycursor.fetchone():
+                print(f"Building with advert_url {building['advert_url']} already exists.")
+                continue
+
             building['title'] = translate_text(building['title'].split('|')[0])
             building['second_title'] = translate_text(building['second_title'])
             building['location'] = translate_text(building['location'])
